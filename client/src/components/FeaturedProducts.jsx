@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+
 const CATEGORIES = [
   { value: '', label: 'All' },
   { value: 'MAN', label: 'Man' },
@@ -22,7 +24,7 @@ function FeaturedProducts() {
   const fetchProducts = async () => {
     try {
       setLoading(true)
-      let url = 'http://localhost:5000/api/products?limit=20&isActive=true&productStatus=판매중&sortBy=sortOrder&sortOrder=desc'
+      let url = `${API_URL}/products?limit=20&isActive=true&productStatus=판매중&sortBy=sortOrder&sortOrder=desc`
       
       if (selectedCategory) {
         url += `&parentCategory=${selectedCategory}`

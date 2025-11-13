@@ -3,6 +3,8 @@ import AdminHeader from '../../components/AdminHeader'
 import { orderService } from '../../services/orderService'
 import api from '../../utils/api'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+
 function Admin() {
   const [productStats, setProductStats] = useState({
     total: 0,
@@ -52,7 +54,7 @@ function Admin() {
 
   const fetchProductStats = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/products/stats/counts')
+      const response = await fetch(`${API_URL}/products/stats/counts`)
       const data = await response.json()
       
       if (data.success) {

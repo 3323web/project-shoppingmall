@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AdminHeader from '../../components/AdminHeader'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+
 function ProductRegister() {
   const navigate = useNavigate()
   
@@ -40,7 +42,7 @@ function ProductRegister() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/categories?isActive=true')
+      const response = await fetch(`${API_URL}/categories?isActive=true`)
       const data = await response.json()
       if (data.success) {
         setCategories(data.data)
@@ -242,7 +244,7 @@ function ProductRegister() {
         customOptions
       }
 
-      const response = await fetch('http://localhost:5000/api/products', {
+      const response = await fetch(`${API_URL}/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

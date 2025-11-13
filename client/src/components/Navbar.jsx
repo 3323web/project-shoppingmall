@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { cartService } from '../services/cartService';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 function Navbar() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -29,7 +31,7 @@ function Navbar() {
           return;
         }
 
-        const response = await fetch('http://localhost:5000/api/users/me', {
+        const response = await fetch(`${API_URL}/users/me`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -115,7 +117,7 @@ function Navbar() {
         const promises = parentCategories.map(async (parentCategory) => {
           try {
             const response = await fetch(
-              `http://localhost:5000/api/categories?parentCategory=${parentCategory}&isActive=true`
+              `${API_URL}/categories?parentCategory=${parentCategory}&isActive=true`
             );
             const data = await response.json();
             if (data.success) {

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AdminHeader from '../../components/AdminHeader'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+
 function CategoryManagement() {
   const navigate = useNavigate()
   const [selectedParentCategory, setSelectedParentCategory] = useState('')
@@ -25,7 +27,7 @@ function CategoryManagement() {
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/categories?parentCategory=${selectedParentCategory}&isActive=true`
+        `${API_URL}/categories?parentCategory=${selectedParentCategory}&isActive=true`
       )
       const data = await response.json()
       if (data.success) {
@@ -77,7 +79,7 @@ function CategoryManagement() {
         isActive: true
       }
 
-      const response = await fetch('http://localhost:5000/api/categories', {
+      const response = await fetch(`${API_URL}/categories`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,7 +113,7 @@ function CategoryManagement() {
         return
       }
 
-      const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/reorder`, {
+      const response = await fetch(`${API_URL}/categories/${categoryId}/reorder`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -160,7 +162,7 @@ function CategoryManagement() {
       }
 
       // 수정 시에는 기존 슬러그 유지
-      const response = await fetch(`http://localhost:5000/api/categories/${editingCategory._id}`, {
+      const response = await fetch(`${API_URL}/categories/${editingCategory._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -204,7 +206,7 @@ function CategoryManagement() {
         return
       }
 
-      const response = await fetch(`http://localhost:5000/api/categories/${categoryId}`, {
+      const response = await fetch(`${API_URL}/categories/${categoryId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

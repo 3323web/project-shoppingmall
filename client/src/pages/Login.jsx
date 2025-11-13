@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+
 function Login() {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
@@ -26,7 +28,7 @@ function Login() {
         }
 
         // 토큰으로 유저 정보 확인
-        const response = await fetch('http://localhost:5000/api/users/me', {
+        const response = await fetch(`${API_URL}/users/me`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -68,7 +70,7 @@ function Login() {
     setLoading(true)
 
     try {
-      const response = await fetch('http://localhost:5000/api/users/login', {
+      const response = await fetch(`${API_URL}/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AdminHeader from '../../components/AdminHeader'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+
 function ProductEdit() {
   const navigate = useNavigate()
   const { id } = useParams()
@@ -44,7 +46,7 @@ function ProductEdit() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/categories?isActive=true')
+      const response = await fetch(`${API_URL}/categories?isActive=true`)
       const data = await response.json()
       if (data.success) {
         setCategories(data.data)
@@ -56,7 +58,7 @@ function ProductEdit() {
 
   const fetchProduct = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${id}`)
+      const response = await fetch(`${API_URL}/products/${id}`)
       const data = await response.json()
       
       if (data.success) {
@@ -323,7 +325,7 @@ function ProductEdit() {
         customOptions
       }
 
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const response = await fetch(`${API_URL}/products/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

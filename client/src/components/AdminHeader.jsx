@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+
 function AdminHeader() {
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
@@ -26,7 +28,7 @@ function AdminHeader() {
   const fetchUserInfo = async (token) => {
     try {
       console.log('AdminHeader: 유저 정보 조회 시작')
-      const response = await fetch('http://localhost:5000/api/users/me', {
+      const response = await fetch(`${API_URL}/users/me`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
